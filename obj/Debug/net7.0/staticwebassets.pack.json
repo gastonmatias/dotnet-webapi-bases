@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/wwwroot/Archivo 1.txt",
+      "PackagePath": "staticwebassets/Archivo 1.txt"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.build.webAPIAuthors.props",
+      "PackagePath": "build\\webAPIAuthors.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.webAPIAuthors.props",
+      "PackagePath": "buildMultiTargeting\\webAPIAuthors.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.webAPIAuthors.props",
+      "PackagePath": "buildTransitive\\webAPIAuthors.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.webAPIAuthors.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
