@@ -2,11 +2,8 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-// using webAPIAutores;
 using webAPIAuthors;
 using webAPIAuthors.Filtros;
-using webAPIAuthors.Middlewares;
-using webAPIAuthors.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,38 +26,32 @@ builder.Services.AddControllers(opciones =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
-// para ejecutar un codigo recurrente
-builder.Services.AddHostedService<EscribirEnArchivo>();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 // filtro para uso de cache
-builder.Services.AddResponseCaching();
+// builder.Services.AddResponseCaching();
 
 // filtro para uso de autenticacion
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
-// para uso de filtro personalizado
-builder.Services.AddTransient<MiFiltroDeAccion>();
+//? AUTOMAPPER
+builder.Services.AddAutoMapper(typeof(Program)); // funca
+// builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // tambien funca
+// builder.Services.AddAutoMapper(typeof(StartupBase)); // no funca retonar List usado por gavilanch
+
 
 var app = builder.Build();
 
 //! middlewares: se ejecutan segun orden de llegada
-// forma valida pero sin utilizar la clase estatica LoguearRespuestaHTTPMiddlewareExtensions
-// app.UseMiddleware<LoguearRespuestaHTTPMiddleware>();
-
-// la diferencia es qe aqui NO estamos exponiendo la clase qe estamos utilizando
-// app.UseLoguearRespuestaHTTP();
 
 //map crea una bifucarcion en la tuberia de procesos
-app.Map("/ruta1", app => {
-    // run corta la tuberia de procesos, en este caso de /ruta1
-    app.Run(async contexto => {
-        await contexto.Response.WriteAsync("estoy interceptando la tuberia");
-    });
-});
+// app.Map("/ruta1", app => {
+//     // run corta la tuberia de procesos, en este caso de /ruta1
+//     app.Run(async contexto => {
+//         await contexto.Response.WriteAsync("estoy interceptando la tuberia");
+//     });
+// });
 
 
 // Configure the HTTP request pipeline.
@@ -71,8 +62,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseResponseCaching();
 
 app.UseAuthorization();
 

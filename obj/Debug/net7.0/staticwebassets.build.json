@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EfiMLhyRkJhsS/kODtAs3mB2T/0ML91sAr0FgbmEMWk=",
+  "Hash": "mcTCZDfGZ0khfCucmITXHsJlGk8sIrpOyBPKr4XPFks=",
   "Source": "webAPIAuthors",
   "BasePath": "_content/webAPIAuthors",
   "Mode": "Default",
@@ -15,23 +15,5 @@
       "Pattern": "**"
     }
   ],
-  "Assets": [
-    {
-      "Identity": "/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/wwwroot/Archivo 1.txt",
-      "SourceId": "webAPIAuthors",
-      "SourceType": "Discovered",
-      "ContentRoot": "/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/wwwroot/",
-      "BasePath": "_content/webAPIAuthors",
-      "RelativePath": "Archivo 1.txt",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/Archivo 1.txt"
-    }
-  ]
+  "Assets": []
 }

@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using webAPIAuthors.DTOs;
 using webAPIAuthors.Entidades;
-using webAPIAuthors.Filtros;
 
 namespace webAPIAuthors.Controllers
 {
@@ -18,38 +19,29 @@ namespace webAPIAuthors.Controllers
     // [Route("api/[controller]")] 
     public class AutoresController: ControllerBase
     {
-        private readonly IWebHostEnvironment env;
         private readonly ApplicationDbContext context;
-        private readonly ILogger<AutoresController> logger;
+        private readonly IMapper mapper;
 
-        // inyeccion de servicio ApplicationDbContext (configurado en program.cs) 
-        // que controla conex a bd
-        public AutoresController(ApplicationDbContext context, ILogger<AutoresController> logger){
+        //# region[blue] //! INYECCION
+        public AutoresController(ApplicationDbContext context,IMapper mapper){
             this.context = context;
-            this.logger = logger;
+            this.mapper = mapper;
         }
-
+        //#endregion
+        
+        //! GET LISTADO AUTORES
         [HttpGet]
-        [HttpGet("/listado")]
-        [ResponseCache(Duration =10)] /* las prox peticiones http qe lleguen en los prox 10 seg se serviran del cache */
-        public async Task<ActionResult<List<Autor>>> Get(){
+        // [ResponseCache(Duration =10)] /* las prox peticiones http qe lleguen en los prox 10 seg se serviran del cache */
+        // public async Task<ActionResult<List<AutorDTO>>> Get(){
+        public async Task<List<AutorDTO>> Get(){
             
-            // throw new NotImplementedException();// para testear filtro global FiltroDeExcepcion
-            logger.LogInformation("Estamos obteniendo los autores");
-            logger.LogError("MSJE DE PRUEBA");
-            return await context.Autores.Include(x => x.Libros).ToListAsync();
-        }
-
-        [HttpGet("primero")] // api/autores/primero?nombre=peter
-        // [Authorize]
-        [ServiceFilter(typeof(MiFiltroDeAccion))]
-        public async Task<ActionResult<Autor>> PrimerAutor([FromHeader] int miValor,[FromQuery] string nombre){
-            return await context.Autores.FirstOrDefaultAsync();// 1er registro de la tabla o null
+            var autores = await context.Autores.ToListAsync();
+            return mapper.Map<List<AutorDTO>>(autores);// .Map<destino>(fuente)
         }
 
         // ! obtener autor x id
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Autor>> Get(int id){
+        public async Task<ActionResult<AutorDTO>> Get(int id){
             var autor =  await context.Autores.FirstOrDefaultAsync(x => x.Id == id); // 1er registro de la tabla o null
 
             if (autor == null)
@@ -57,36 +49,38 @@ namespace webAPIAuthors.Controllers
                 return NotFound(); // not found hereda de ActionResult
             }
 
-            return autor;
+            return mapper.Map<AutorDTO>(autor); // .Map<destino>(fuente
 
         }
 
-        // ! obtener autor x id
+        // ! obtener autor/es x nombre
         [HttpGet("{nombre}")] /* nota: NO existe restriccion x string */
-        public async Task<ActionResult<Autor>> Get([FromRoute]string nombre){
-            var autor =  await context.Autores.FirstOrDefaultAsync(x => x.Nombre.Contains(nombre)); // 1er registro de la tabla o null
+        public async Task<ActionResult<List<AutorDTO>>> Get([FromRoute]string nombre){
+            var autores =  await context.Autores.Where(autorBD => autorBD.Nombre.Contains(nombre)).ToListAsync();
 
-            if (autor == null)
-            {
-                return NotFound();
-            }
-
-            return autor;
-
+            return mapper.Map<List<AutorDTO>>(autores);// .Map<destino>(fuente)
         }
 
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Autor autor){
+        public async Task<ActionResult> Post([FromBody] DTOs.AutorCreacionDTO autorCreacionDTO){
 
             // validacion desde controller
-            var existeAutorConMismoNombre = await context.Autores.AnyAsync(x => x.Nombre == autor.Nombre); // retorna bool
+            var existeAutorConMismoNombre = await context.Autores.AnyAsync(x => x.Nombre == autorCreacionDTO.Nombre); // retorna bool
 
             if (existeAutorConMismoNombre)
             {   
-                return BadRequest($"Ya existe un autor con el nombre {autor.Nombre}");
+                return BadRequest($"Ya existe un autor con el nombre {autorCreacionDTO.Nombre}");
             }
 
+            // dbcontext no reconoceria autorCreacionDTO como entidad valida para bd,
+            // por ello se necesitar mapear a "autor"
+            
+            // se le pasa al mapeador de automaper, la instancia de autorCreacionDTO que quiero mapear
+            // hacia el tipo autor
+            var autor = mapper.Map<Autor>(autorCreacionDTO);
+
+            // autor mapeado pasado al context de bd
             context.Add(autor);
             await context.SaveChangesAsync();
 

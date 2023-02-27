@@ -76,3 +76,5 @@
 /home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/obj/Debug/net7.0/ref/webAPIAuthors.dll
 /home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
 /home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/webAPIAuthors.staticwebassets.runtime.json
+/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/AutoMapper.dll
+/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
