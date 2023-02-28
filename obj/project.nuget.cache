@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wqLmHOMOTiP2aOm9sXoFTg8YfaTl8+EhCvlaWmbTJ8+v22KLBogrKkqlIIN2G5gkQlb4IhKEFgfnii5V+WK1Hg==",
+  "dgSpecHash": "GxLJeehbLN/i+36OxaB0iEHhdiniB2AERCxEhbqvgHqzO7bh6T0qpEf/sAjM2gXj571QnkQgkCOkAsEU1eaayw==",
   "success": true,
   "projectFilePath": "/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/webAPIAuthors.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "/home/gmat/.nuget/packages/azure.identity/1.6.0/azure.identity.1.6.0.nupkg.sha512",
     "/home/gmat/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/gmat/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/7.0.3/microsoft.aspnetcore.authentication.jwtbearer.7.0.3.nupkg.sha512",
+    "/home/gmat/.nuget/packages/microsoft.aspnetcore.jsonpatch/7.0.3/microsoft.aspnetcore.jsonpatch.7.0.3.nupkg.sha512",
+    "/home/gmat/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/7.0.3/microsoft.aspnetcore.mvc.newtonsoftjson.7.0.3.nupkg.sha512",
     "/home/gmat/.nuget/packages/microsoft.aspnetcore.openapi/7.0.2/microsoft.aspnetcore.openapi.7.0.2.nupkg.sha512",
     "/home/gmat/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/home/gmat/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
@@ -48,6 +50,8 @@
     "/home/gmat/.nuget/packages/microsoft.win32.registry/5.0.0/microsoft.win32.registry.5.0.0.nupkg.sha512",
     "/home/gmat/.nuget/packages/microsoft.win32.systemevents/5.0.0/microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "/home/gmat/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/home/gmat/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
+    "/home/gmat/.nuget/packages/newtonsoft.json.bson/1.0.2/newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "/home/gmat/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "/home/gmat/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "/home/gmat/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",

@@ -13,10 +13,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
 builder.Services.AddControllers(opciones =>
-    opciones.Filters.Add(typeof(FiltroDeExcepcion)) /* FILTRO GLOBAL */ 
-).AddJsonOptions( x =>
-    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
-);
+        opciones.Filters.Add(typeof(FiltroDeExcepcion)) /* FILTRO GLOBAL */ 
+    ).AddJsonOptions( x =>
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles)
+    .AddNewtonsoftJson();
 
 // "cuando una clase requiera un IServicio, otorgar un ServicioA"
 // builder.Services.AddTransient<IServicio, ServicioA>();

@@ -16,6 +16,7 @@ namespace webAPIAuthors.Entidades
         [PrimeraLetraMayuscula] /* validacion personalizada */
         [StringLength(maximumLength:250)]
         public string Titulo { get; set; }
+        public DateTime? FechaPublicacion { get; set; }
 
         // props de navegacion, permiten joins de manera sencilla
         public List<Comentario> Comentarios { get; set; }

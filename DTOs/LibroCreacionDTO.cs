@@ -13,6 +13,7 @@ namespace webAPIAuthors.DTOs
         [StringLength(maximumLength:250)]
         public string Titulo { get; set; }
 
+        public DateTime FechaPublicacion { get; set; }
         // al crear un libro se debe enviar un array de ids de su/s autor/es
         public List<int> AutoresIds { get; set; }
         // PERO ojo, la entidad libro espera un List<AutoresLibros> para ser guardada

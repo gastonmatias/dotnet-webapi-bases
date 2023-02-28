@@ -39,6 +39,17 @@ namespace webAPIAuthors.Controllers
             return mapper.Map<List<ComentarioDTO>>(comentarios);
         }
 
+        [HttpGet("{id:int}", Name = "obtenerComentario")]
+        public async Task<ActionResult<ComentarioDTO>> GetById(int id){
+
+            var comentario = await context.Comentarios.FirstOrDefaultAsync(comentarioDb => comentarioDb.Id == id);
+
+            if (comentario == null) { return NotFound();}
+
+            return mapper.Map<ComentarioDTO>(comentario);
+
+        }
+
         //! POST comentario
         [HttpPost]
         public async Task<ActionResult> Post(int libroId, ComentarioCreacionDTO comentarioCreacionDTO){
@@ -58,7 +69,31 @@ namespace webAPIAuthors.Controllers
             context.Add(comentario);
             await context.SaveChangesAsync();
 
-            return Ok();
+            var comentarioDTO = mapper.Map<ComentarioDTO>(comentario);
+
+            return CreatedAtRoute("obtenerComentario", new {id = comentario.Id, libroId = libroId }, comentarioDTO);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(ComentarioCreacionDTO comentarioCreacionDTO, int id, int libroId){
+
+            var existeLibro = await context.Libros.AnyAsync(libroDB => libroDB.Id == libroId);
+            if(!existeLibro){ return NotFound();}
+
+            var existeComentario = await context.Comentarios.AnyAsync(x => x.Id == id);
+            if(!existeComentario){ return NotFound();}
+
+            //? actualizacion de datos
+            //? map solo mapeara el prop contenido, 
+            //? las otras props seran asignadas mediante los args pasados x params
+            var comentario = mapper.Map<Comentario>(comentarioCreacionDTO);   
+            comentario.Id = id; // asignacion id pasado x params
+            comentario.LibroId = libroId; // asignacion libroId pasado x params
+
+            context.Update(comentario);
+            await context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

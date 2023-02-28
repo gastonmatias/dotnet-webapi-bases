@@ -40,16 +40,19 @@ namespace webAPIAuthors.Controllers
         }
 
         // ! obtener autor x id
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<AutorDTO>> Get(int id){
-            var autor =  await context.Autores.FirstOrDefaultAsync(x => x.Id == id); // 1er registro de la tabla o null
+        [HttpGet("{id:int}", Name = "obtenerAutor")]
+        public async Task<ActionResult<AutorDTOConLibros>> Get(int id){
+            var autor =  await context.Autores
+                        .Include(autorDb => autorDb.AutoresLibros)
+                        .ThenInclude(autorLibroDb => autorLibroDb.Libro)
+                        .FirstOrDefaultAsync(x => x.Id == id); // 1er registro de la tabla o null
 
             if (autor == null)
             {
                 return NotFound(); // not found hereda de ActionResult
             }
 
-            return mapper.Map<AutorDTO>(autor); // .Map<destino>(fuente
+            return mapper.Map<AutorDTOConLibros>(autor); // .Map<destino>(fuente
 
         }
 
@@ -84,27 +87,29 @@ namespace webAPIAuthors.Controllers
             context.Add(autor);
             await context.SaveChangesAsync();
 
-            return Ok();
+            var autorDTO = mapper.Map<AutorDTO>(autor);
+
+            // se pasa por params: ruta + objeto anonimo (contiene arg para la ruta) + objeto creado en BD
+            return CreatedAtRoute("obtenerAutor", new { id = autor.Id}, autorDTO ); 
         }
 
         [HttpPut("{id:int}")] // api/autores/id
-        public async Task<ActionResult> Put(Autor autor, int id){
+        public async Task<ActionResult> Put(AutorCreacionDTO autorCreacionDTO, int id){
 
-            if (autor.Id != id)
-            {
-                return BadRequest("El id del autor NO coincide con el id de la URL"); //error 4xx
-            }
-
+            // valida qe exista autor con id pasado por params
             var existe = await context.Autores.AnyAsync(x=> x.Id == id);
+            if (!existe) { return NotFound();}
 
-            if (!existe){
-                return NotFound(); // error 404
-            }
+            // mapeo del DTO modificado a entidad
+            var autor = mapper.Map<Autor>(autorCreacionDTO);
+
+            // asignar la id
+            autor.Id = id; //id qe viene por params
 
             context.Update(autor);
             await context.SaveChangesAsync();
 
-            return Ok();
+            return NoContent(); // 204
         }
         
         [HttpDelete("{id:int}")] //api/autores/id
