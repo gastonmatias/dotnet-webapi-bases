@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using webAPIAuthors;
@@ -39,6 +40,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddAutoMapper(typeof(Program)); // funca
 // builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // tambien funca
 // builder.Services.AddAutoMapper(typeof(StartupBase)); // no funca retonar List usado por gavilanch
+
+//? SERVICIO IDENTITY: Esquema seguridad tipo Bearer
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+;
 
 
 var app = builder.Build();

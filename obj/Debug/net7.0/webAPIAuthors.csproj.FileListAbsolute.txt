@@ -82,3 +82,9 @@
 /home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 /home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Newtonsoft.Json.dll
 /home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Newtonsoft.Json.Bson.dll
+/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Microsoft.Extensions.Identity.Core.dll
+/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Microsoft.Extensions.Identity.Stores.dll
+/home/gmatias/code/nvme/felipe_gavilan/webapi/webAPIAuthors/bin/Debug/net7.0/Microsoft.Extensions.Options.dll

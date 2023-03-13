@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,16 +22,19 @@ namespace webAPIAuthors.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
+        private readonly IConfiguration configuration;
 
         //# region[blue] //! INYECCION
-        public AutoresController(ApplicationDbContext context,IMapper mapper){
+        public AutoresController(ApplicationDbContext context,IMapper mapper, IConfiguration configuration){
             this.context = context;
             this.mapper = mapper;
+            this.configuration = configuration;
         }
         //#endregion
         
         //! GET LISTADO AUTORES
         [HttpGet]
+        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         // [ResponseCache(Duration =10)] /* las prox peticiones http qe lleguen en los prox 10 seg se serviran del cache */
         // public async Task<ActionResult<List<AutorDTO>>> Get(){
         public async Task<List<AutorDTO>> Get(){
@@ -63,7 +67,6 @@ namespace webAPIAuthors.Controllers
 
             return mapper.Map<List<AutorDTO>>(autores);// .Map<destino>(fuente)
         }
-
 
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] DTOs.AutorCreacionDTO autorCreacionDTO){
